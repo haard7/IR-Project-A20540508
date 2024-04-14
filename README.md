@@ -30,6 +30,7 @@ Note: You can edit the config.json file in indexer folder to give customize quer
 $ cd processor
 ```
 ```
+$ export FLASK_APP=run.py
 $ flask run
 ```
 visit [http://127.0.0.1:5000](http://127.0.0.1:5000) on browser

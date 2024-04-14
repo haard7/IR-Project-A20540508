@@ -7,24 +7,33 @@ app = Flask(__name__)
 with open("../indexer/inverted_index.json", "r", encoding="utf-8") as f:
     inverted_index = json.load(f)
 
+# Global variable to store the latest query results
+latest_results = []
+
 
 def get_top_k_results(query_terms, k=5):
-    # Calculate the aggregate tf-idf scores for documents
+    # Calculate the aggregate tf-idf scores for documents and store document IDs
     doc_scores = {}
+    doc_ids = {}
     for term in query_terms:
         if term in inverted_index:
-            for doc, score in inverted_index[term]:
+            for entry in inverted_index[term]:
+                doc = entry["filename"]
+                score = entry["tfidf"]
+                doc_id = entry["document_id"]
                 if doc in doc_scores:
                     doc_scores[doc] += score
                 else:
                     doc_scores[doc] = score
+                    doc_ids[doc] = doc_id  # Store document ID corresponding to filename
 
     # Sort documents based on scores in descending order and select top-k
     top_k_docs = sorted(doc_scores.items(), key=lambda x: x[1], reverse=True)[:k]
-    return top_k_docs
+    return [
+        (doc, doc_ids[doc], score) for doc, score in top_k_docs
+    ]  # Return doc, doc_id, score
 
 
-@app.route("/", methods=["GET", "POST"])
 @app.route("/", methods=["GET", "POST"])
 def home():
     if request.method == "POST":
@@ -35,20 +44,24 @@ def home():
             )
 
         query_terms = query.split()
-        top_k_results = get_top_k_results(query_terms, k=5)
-        results = [{"document": doc, "score": score} for doc, score in top_k_results]
+        global latest_results
+        latest_results = get_top_k_results(query_terms, k=5)
+        results = [
+            {"document_id": doc_id, "document": doc, "score": score}
+            for doc, doc_id, score in latest_results
+        ]
         return render_template_string(RESULTS_TEMPLATE, query=query, results=results)
     return render_template_string(FORM_TEMPLATE)
 
 
-# def home():
-#     if request.method == "POST":
-#         query = request.form["query"]
-#         query_terms = query.split()
-#         top_k_results = get_top_k_results(query_terms, k=5)
-#         results = [{"document": doc, "score": score} for doc, score in top_k_results]
-#         return render_template_string(RESULTS_TEMPLATE, query=query, results=results)
-#     return render_template_string(FORM_TEMPLATE)
+@app.route("/json", methods=["GET"])
+def json_results():
+    # Return the latest results in JSON format
+    results = [
+        {"document_id": doc_id, "document_name": doc, "tfidf_score": score}
+        for doc, doc_id, score in latest_results
+    ]
+    return jsonify(results)
 
 
 FORM_TEMPLATE = """
@@ -59,13 +72,13 @@ FORM_TEMPLATE = """
 </head>
 <body>
     <h2>Enter your search query</h2>
-	<form method="post">
-    	<input type="text" name="query" />
-    	<input type="submit" value="Search" />
-	</form>
-	{% if error %}
-    	<p style="color: red;">{{ error }}</p>
-	{% endif %}
+    <form method="post">
+        <input type="text" name="query" />
+        <input type="submit" value="Search" />
+    </form>
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
 </body>
 </html>
 """
@@ -86,6 +99,10 @@ RESULTS_TEMPLATE = """
             font-size: 18px;
             font-weight: bold;
         }
+        .document-id {
+            font-size: 14px;
+            color: #666;
+        }
         .score {
             font-size: 14px;
             color: #666;
@@ -98,15 +115,16 @@ RESULTS_TEMPLATE = """
         <div>
         {% for result in results %}
             <div class="result-item">
-                <div class="document-name">{{ result.document }}</div>
-                <div class="score">Score: {{ result.score | round(4) }}</div>
+                <div class="document-name">Document: {{ result.document }}</div>
+                <div class="document-id">Document ID: {{ result.document_id }}</div>
+                <div class="score">TF-IDF Score: {{ result.score | round(4) }}</div>
             </div>
         {% endfor %}
         </div>
     {% else %}
         <p>No results found</p>
     {% endif %}
-    <a href="/">New search</a>
+    <a href="/">New search</a> | <a href="/json">JSON</a>
 </body>
 </html>
 """

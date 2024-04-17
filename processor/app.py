@@ -1,11 +1,21 @@
 from flask import Flask, request, render_template_string, jsonify
 import json
 
+# Import NLTK for stop words removal
+import nltk
+from nltk.corpus import stopwords
+
+# Download NLTK stopwords list if not already downloaded
+nltk.download("stopwords")
+
 app = Flask(__name__)
 
 # Load the inverted index with explicit encoding
 with open("../indexer/inverted_index.json", "r", encoding="utf-8") as f:
     inverted_index = json.load(f)
+
+# Load NLTK English stopwords
+stop_words = set(stopwords.words("english"))
 
 # Global variable to store the latest query results
 latest_results = []
@@ -37,13 +47,17 @@ def get_top_k_results(query_terms, k=5):
 @app.route("/", methods=["GET", "POST"])
 def home():
     if request.method == "POST":
+
         query = request.form["query"].strip()  # Trim whitespace from both ends
+
         if not query:  # Check if query is empty
             return render_template_string(
                 FORM_TEMPLATE, error="Please enter a search query."
             )
 
-        query_terms = query.split()
+        # Tokenize query and remove stop words
+        query_terms = [word for word in query.split() if word.lower() not in stop_words]
+
         global latest_results
         latest_results = get_top_k_results(query_terms, k=5)
         results = [

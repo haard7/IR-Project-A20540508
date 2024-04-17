@@ -1,8 +1,11 @@
 
-Note: To Run this project please refer the Readme.md file in respctive folders (crawler, indexer, and processor).There I have described in detail that how to run each component.
+**Note:** To Run this project please refer the Readme.md file in respective folders (crawler, indexer, and processor).There I have described in detail that how to run each component.
 Here you will only find the project Report.
 
 # Project Report
+
+#### Student Name: Haard Patel
+#### CWID: A20540508
 
 ## Abstract
 - There are three components developed in this projects which is aimed to articulate the end to end search engine functionality at small scale to understand how actually the web search engines work.
@@ -13,14 +16,11 @@ Here you will only find the project Report.
 ## Design
 - Basically its monolithic design where we have three separate components run separately but they are depended on the output of previous component
 
-
-
 ## Architecture
 
 - **Web Crawler**: Downloads web documents in HTML format using Scrapy.
 - **Indexer**: Constructs an inverted index using Scikit-Learn.
 - **Query Processor**: Handles text queries and returns relevant documents via a Flask server.
-
 
 
 ## Operation
@@ -98,6 +98,14 @@ you can find the source code documentation at [Documentation](https://www.overle
 
 ## Bibliography
 
-- [Scrapy Documentation](https://docs.scrapy.org/en/latest/)
-- [Scikit-Learn Tutorials](https://scikit-learn.org/stable/tutorial/index.html)
-- [Flask Documentation](https://flask.palletsprojects.com/en/2.2.x/)
+- Scrapy Documentation: "Scrapy Documentation." Accessed April 17, 2024. [https://docs.scrapy.org/en/latest/](https://docs.scrapy.org/en/latest/)
+
+- Scikit-Learn Tutorials: "Scikit-Learn Tutorials." Accessed April 17, 2024. [https://scikit-learn.org/stable/tutorial/index.html](https://scikit-learn.org/stable/tutorial/index.html)
+
+- Flask Documentation: "Flask Documentation." Accessed April 17, 2024. [https://flask.palletsprojects.com/en/2.2.x/](https://flask.palletsprojects.com/en/2.2.x/)
+
+- ChatGPT prompt: "How to Use Pickle Format in Python." ChatGPT prompt.
+
+- Blog on extracting the text from HTML document: "How Do I Extract Text from HTML Elements Using Beautiful Soup?" Last modified 2024. [https://webscraping.ai/faq/beautiful-soup/how-do-i-extract-text-from-html-elements-using-beautiful-soup](https://webscraping.ai/faq/beautiful-soup/how-do-i-extract-text-from-html-elements-using-beautiful-soup)
+
+- HTML Documentation: "HTML Forms." W3Schools. Accessed April 17, 2024. [https://www.w3schools.com/html/html_forms.asp](https://www.w3schools.com/html/html_forms.asp)

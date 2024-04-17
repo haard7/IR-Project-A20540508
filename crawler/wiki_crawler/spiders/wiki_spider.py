@@ -1,4 +1,3 @@
-# with HTMML code
 
 import scrapy
 from scrapy.crawler import CrawlerProcess

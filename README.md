@@ -78,9 +78,11 @@ Note: you can replace the links by the choice of your wikipedia links to test it
 
 ### Processor
 
-- **Query Handling Test**: after ruuning the flask server with `flask run`, write a query in search box like `Sun the renewable source of energy`. because we have scrapped the documents related to energy.
+- **Main Test**: go to `/json` to view the complete output of top-k results including the content where we can debug and cross check whether the results are accurate or not.
+- **Query Handling Test**: after ruuning the flask server with `flask run`, write a query in search box like `Sun the renewable source of energy`to see the relevant document fetched. because we have scrapped the documents related to energy. For more detail output go to `/json` output
 - **Error Handling Test**: Tests system's response to malformed queries.
 - **Accuracy and Recall test**: you can modify the parameter `k` to retrieve the specific number of document you want to fetch when you enter a query. you can change the value of k in `>crawler > processor > app.py`. change the k value in function `get_top_k_results(query_terms, k=5)`
+- **Spell-correction Test**: you can misspelled something like `hydropover energi` but it will give the output of documents for corrected query `hydropower energy`
 
 ## Source code
 

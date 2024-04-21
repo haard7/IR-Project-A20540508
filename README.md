@@ -43,12 +43,11 @@ Example Screenshots
 
 Example Screenshots
 
-![3 1](https://github.com/haard7/IR-Project-A20540508/assets/69381806/23aa0d63-677f-4bcf-893a-9a3de7da7aa0)
+![3 1_new](https://github.com/haard7/IR-Project-A20540508/assets/69381806/f5629964-5726-4cf6-8a97-8226202b3003)
 
-![3 2](https://github.com/haard7/IR-Project-A20540508/assets/69381806/98c38f04-cf9f-4da2-a706-3568c5edde36)
+![3 2_new](https://github.com/haard7/IR-Project-A20540508/assets/69381806/81cfde06-0146-4d9d-b253-f6e2b68879df)
 
-![3 3](https://github.com/haard7/IR-Project-A20540508/assets/69381806/f6c26109-b283-4738-ae2a-17a801ab57ff)
-
+![3 3_new](https://github.com/haard7/IR-Project-A20540508/assets/69381806/689aa261-3e1e-4bde-bd3d-3e04bc091285)
 ## Design
 - Basically its monolithic design where we have three separate components run separately but they are depended on the output of previous component
 

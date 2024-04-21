@@ -2,7 +2,6 @@
 **Note:** To Run this project please refer the Readme.md file in respective folders (crawler, indexer, and processor).There I have described in detail that how to run each component.
 Here you will only find the project Report.
 
-
 #### Video Demo : [https://youtu.be/2FCJG22ZYxQ](https://youtu.be/2FCJG22ZYxQ)
 
 # Project Report
@@ -47,7 +46,8 @@ Example Screenshots
 
 ![3 2_new](https://github.com/haard7/IR-Project-A20540508/assets/69381806/81cfde06-0146-4d9d-b253-f6e2b68879df)
 
-![3 3_new](https://github.com/haard7/IR-Project-A20540508/assets/69381806/689aa261-3e1e-4bde-bd3d-3e04bc091285)
+![3 3_updated](https://github.com/haard7/IR-Project-A20540508/assets/69381806/6de6a534-6e2e-40b2-b309-97a8bc95a15e)
+
 ## Design
 - Basically its monolithic design where we have three separate components run separately but they are depended on the output of previous component
 
@@ -98,26 +98,36 @@ Note: you can replace the links by the choice of your wikipedia links to test it
 - [Geothermal Energy](https://en.wikipedia.org/wiki/Geothermal_energy)
 - [Hydropower](https://en.wikipedia.org/wiki/Hydropower)
 
-## Test Cases
+## Testing
 
-### Crawler
+
+####  Crawler
 
 - **Input urls**: You can try with the different urls of wikipedia. to modify this go to crawler > wiki_crawler > spiders > wiki_spider.py
 - **Depth Control Test**: test with the various parameters of maximum depth and number of pages to scrap.
 
-### Indexer
+#### Indexer
 
 - **Index Creation Test**: To test the Indexer you can write a free text query to see the console output for retrieved document for given query. Modify the `config.json` file
 - you can see the resulted inverted index at `inverted_index.json` file.
 
 
-### Processor
+#### Processor
 
 - **Main Test**: go to `/json` to view the complete output of top-k results including the content where we can debug and cross check whether the results are accurate or not.
 - **Query Handling Test**: after ruuning the flask server with `flask run`, write a query in search box like `Sun the renewable source of energy`to see the relevant document fetched. because we have scrapped the documents related to energy. For more detail output go to `/json` output
 - **Error Handling Test**: Tests system's response to malformed queries.
 - **Accuracy and Recall test**: you can modify the parameter `k` to retrieve the specific number of document you want to fetch when you enter a query. you can change the value of k in `>crawler > processor > app.py`. change the k value in function `get_top_k_results(query_terms, k=5)`
 - **Spell-correction Test**: you can misspelled something like `hydropover energi` but it will give the output of documents for corrected query `hydropower energy`
+
+###  Test Cases
+
+search below queries in search box of flask app to test various cases including spelling correction
+
+1) `sun as renewable source of energy`
+2) `power consumption`
+3) `hydropover energi`  (It is misspelled to test)
+
 
 ## Source code
 

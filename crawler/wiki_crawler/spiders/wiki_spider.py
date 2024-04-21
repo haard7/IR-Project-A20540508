@@ -1,4 +1,3 @@
-
 import scrapy
 from scrapy.crawler import CrawlerProcess
 from scrapy.exceptions import CloseSpider
@@ -19,6 +18,11 @@ class WikiSpider(scrapy.Spider):
         "https://en.wikipedia.org/wiki/Bioenergy",
         "https://en.wikipedia.org/wiki/Geothermal_energy",
         "https://en.wikipedia.org/wiki/Hydropower",
+        "https://en.wikipedia.org/wiki/Future_Energy",
+        "https://en.wikipedia.org/wiki/Energy_development",
+        "https://en.wikipedia.org/wiki/Sustainable_energy",
+        "https://en.wikipedia.org/wiki/UN-Energy",
+        "https://en.wikipedia.org/wiki/World_energy_supply_and_consumption",
     ]
     max_depth = 2
     max_pages = 20

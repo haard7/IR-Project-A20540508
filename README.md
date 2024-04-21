@@ -2,6 +2,9 @@
 **Note:** To Run this project please refer the Readme.md file in respective folders (crawler, indexer, and processor).There I have described in detail that how to run each component.
 Here you will only find the project Report.
 
+
+#### Video Demo : [https://youtu.be/2FCJG22ZYxQ](https://youtu.be/2FCJG22ZYxQ)
+
 # Project Report
 
 #### Student Name: Haard Patel
@@ -10,8 +13,41 @@ Here you will only find the project Report.
 ## Abstract
 - There are three components developed in this projects which is aimed to articulate the end to end search engine functionality at small scale to understand how actually the web search engines work.
 
+
 ## Overview
-- This repository contains a web search system that integrates a web crawler, an indexer, and a query processor. It is designed to crawl web documents, index them efficiently, and provide a search interface to query those documents.
+
+### 1) Crawler
+- It is **Scrapy** based crawler which download the `html` documents based on given URLs and parameters of `max_depth` and `max_pages`.
+
+- In the given project I have used wikipedia URLs, mostly related to renewable energy and power. basically I am downloading the bunch of html documents in `-->crawler-->Data` directory. those all html documents will be used in the next component to build the inverted index. Documents are downloaded with the name of last path of the url to keep track of the documents.
+
+Example Scnreeshot:
+
+![1_crawler](https://github.com/haard7/IR-Project-A20540508/assets/69381806/90b18f45-631d-4f84-81a6-f64ddf2ed57e)
+
+
+### 2) Indexer
+- It is sci-kit learn based indexer which create the inverted index on the data by parsing the html documents from the crawler.
+- It uses the functionality of Tf-IDf score and Cosine Similarity to create the inverted-index
+- In this components there are two files get generated. one, `inverted_index.json` which containes the postings corresponding to each term. second, `content.json` to store the document id and corrersponding document_name and Content which will also print in Flask based processor to debug whether our search results are working well or not.
+- You can also locally test the indexer by running `python indexer.py` and modifying the `config.json` to see the console output of the list of top-k documents being printed
+
+Example Screenshots
+
+![2_Indexer](https://github.com/haard7/IR-Project-A20540508/assets/69381806/b56188af-2ae1-470c-9f60-8e770fed86ba)
+
+
+### 3) Processor
+- It `Flask` based processor to print print the top-k results by performing the query validation/error checking and spelling correction. I have used `NLTK` for stopword removal and `FuzzyWuzzy` for `spelling correction`.
+- my flask app give the UI results of top-k resutls for searched queries. It also give the JSON documents of top-k results. It includes the document name, document ID and Content as well.
+
+Example Screenshots
+
+![3 1](https://github.com/haard7/IR-Project-A20540508/assets/69381806/23aa0d63-677f-4bcf-893a-9a3de7da7aa0)
+
+![3 2](https://github.com/haard7/IR-Project-A20540508/assets/69381806/98c38f04-cf9f-4da2-a706-3568c5edde36)
+
+![3 3](https://github.com/haard7/IR-Project-A20540508/assets/69381806/f6c26109-b283-4738-ae2a-17a801ab57ff)
 
 ## Design
 - Basically its monolithic design where we have three separate components run separately but they are depended on the output of previous component

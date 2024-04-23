@@ -24,6 +24,8 @@ class WikiSpider(scrapy.Spider):
         "https://en.wikipedia.org/wiki/UN-Energy",
         "https://en.wikipedia.org/wiki/World_energy_supply_and_consumption",
     ]
+
+    ## you can modify the below parameters to get the required number of documents
     max_depth = 2
     max_pages = 20
 
